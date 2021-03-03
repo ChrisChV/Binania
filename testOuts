@@ -1,0 +1,8 @@
+MarketBuy
+
+{symbol: XRPUSDT, orderId: 1814181409, orderListId: -1, clientOrderId: 0JoGHDaXyO4RPblD8czbVU, transactTime: 1614633382880, price: 0.00000000, origQty: 29.80000000, executedQty: 29.80000000, cummulativeQuoteQty: 12.97372800, status: FILLED, timeInForce: GTC, type: MARKET, side: BUY, fills: [{price: 0.43536000, qty: 29.80000000, commission: 0.02980000, commissionAsset: XRP, tradeId: 156396948}]}
+
+MarketSell
+
+{symbol: XRPUSDT, orderId: 1814425523, orderListId: -1, clientOrderId: evNd1rPwpnU10GM4BvqoPU, transactTime: 1614638941643, price: 0.00000000, origQty: 29.80000000, executedQty: 29.80000000, cummulativeQuoteQty: 13.23626600, status: FILLED, timeInForce: GTC, type: MARKET, side: SELL, fills: [{price: 0.44417000, qty: 29.80000000, commission: 0.01323627, commissionAsset: USDT, tradeId: 156412441}]}
+

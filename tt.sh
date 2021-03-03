@@ -1,0 +1,1 @@
+echo -n "test" | openssl dgst -sha256 -hmac "jYgL7IQOFtIT0GMtzILgGsj0h5CCqO8G5oofA7zk6HchQEeUTdta7m1OVbzGdzmP"

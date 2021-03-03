@@ -1,0 +1,4 @@
+enum RangeType{
+  target,
+  percentage,
+}
