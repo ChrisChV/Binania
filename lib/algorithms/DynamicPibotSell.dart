@@ -1,41 +1,31 @@
-import 'package:binance/data/ws_classes.dart';
+import 'package:binance/binance.dart';
 import 'package:binania/algorithms/SellAlg.dart';
 import 'package:binania/services/BinanceService.dart';
 import 'package:binania/utils/enums/AlgEnums.dart';
 import 'package:binania/utils/enums/PibotEnums.dart';
 import 'package:get_it/get_it.dart';
 
-class PibotSell extends SellAlg{
+class DynamicPibotSell extends SellAlg{
 
   @override
   String symbol;
   @override
   double buyedPrice;
   @override
-  double initialLose;
-  @override
-  double initialEarn;
-  @override
   double loseRange;
-  @override
-  double earnRange;
   @override
   RangeType rangeType;
   @override
-  AlgSellType algSellType = AlgSellType.pibotSell;
+  AlgSellType algSellType = AlgSellType.dynamicPibotSell;
   @override
   Function(Map<String, dynamic>) onSell;
 
-
-  PibotSell({
+  DynamicPibotSell({
     this.symbol,
-    this.rangeType,
     this.buyedPrice,
-    this.initialLose,
-    this.initialEarn,
     this.loseRange,
-    this.earnRange,
-    this.onSell,
+    this.rangeType,
+    this.onSell
   });
 
   /// Init this algorithm
@@ -50,13 +40,9 @@ class PibotSell extends SellAlg{
   }){
     if(buyedPrice != null) this.buyedPrice = buyedPrice;
     if(rangeType != null) this.rangeType = rangeType;
-    if(initialLose != null) this.initialLose = initialLose;
-    if(initialEarn != null) this.initialEarn = initialEarn;
     if(loseRange != null) this.loseRange = loseRange;
-    if(earnRange != null) this.earnRange = earnRange;
     midLine = this.buyedPrice;
-    calculateTopLine(this.initialEarn);
-    calculateBottomLine(this.initialLose);
+    calculateBottomLine(this.loseRange);
     binanceService = GetIt.I<BinanceService>();
     printActualState();
     tradeStream = binanceService.getTradeStream(symbol);
@@ -77,16 +63,13 @@ class PibotSell extends SellAlg{
       });
       return;
     }
-    if(trade.price > topLine){
-      midLine = topLine;
-      calculateTopLine(earnRange);
+    if(trade.price > midLine){
+      midLine = trade.price;
       calculateBottomLine(loseRange);
       printActualState();
       return;
     }
   }
-
-
 
 
 }

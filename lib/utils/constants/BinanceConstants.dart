@@ -29,6 +29,10 @@ class BinanceConstants{
   static const String EXCHANGE_INFO_FILTERS = 'filters';
   static const String EXCHANGE_INFO_FILTER_TYPE = 'filterType';
 
+  static const String ORDER_FILLS = 'fills';
+  static const String ORDER_FILLS_PRICE = 'price';
+
+
   static const String LOT_SIZE_STEP_SIZE = 'stepSize';
 
   static const String PRICE_FILTER = 'PRICE_FILTER';

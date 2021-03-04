@@ -174,12 +174,18 @@ class BinanceService{
   String _buildQuantityString(String symbol, double quantity){
     String stepSize = exchangeInfoMap[symbol].filters[BinanceConstants.LOT_SIZE][BinanceConstants.LOT_SIZE_STEP_SIZE];
     var stepSizeItems = stepSize.split('.');
-    if(stepSizeItems.first == '1') return quantity.toStringAsFixed(0);
+    if(stepSizeItems.first == '1'){
+      return quantity.toString().split('.').first;
+    } 
     int index;
     for(index = 0; index < stepSizeItems[1].length; index++){
       if(stepSizeItems[1][index] == '1') break;
     }
-    return quantity.toStringAsFixed(index + 1);
+    if(index >= quantity.toString().split('.')[1].length){
+      return quantity.toString();
+    }
+    return quantity.toString().split('.').first + '.'
+             + quantity.toString().split('.')[1].substring(0, index + 1);
   }
 
 }
