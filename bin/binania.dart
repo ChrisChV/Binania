@@ -8,10 +8,16 @@ import 'package:binania/utils/enums/PibotEnums.dart';
 import 'package:get_it/get_it.dart';
 
 Future<void> main(List<String> arguments) async{
+
+  Set<String> tt = Set();
+  tt.add("aa");
+  tt.add("aa");
+  print(tt);
+
+  /*
   GetIt.I.registerSingleton<BinanceService>(BinanceService());
   await GetIt.I<BinanceService>().init(
-    '',
-    ''
+    
   );
   MultipleAlg multipleAlg = MultipleAlg(
     "SUSHIUSDT",
@@ -19,6 +25,7 @@ Future<void> main(List<String> arguments) async{
     AlgSellType.dynamicPibotSell,
   );
 
+/*
   multipleAlg.runSellFirst(
     RangeType.percentage,
     60,
@@ -36,7 +43,25 @@ Future<void> main(List<String> arguments) async{
     null,
     1212122, /// Top Range,
   );
+  */
 
+  multipleAlg.runBuyFirst(
+    RangeType.percentage,
+    60,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    2.5, /// Top range
+    null,
+    null,
+    2.0, /// lose range,
+    null,
+    selledPrice: 17.350
+  );
 
 
 
@@ -85,6 +110,7 @@ Future<void> main(List<String> arguments) async{
     0.341,
     selledPrice: 17.840
   );
+  */
   */
 
 }

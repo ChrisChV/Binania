@@ -20,6 +20,8 @@ class DynamicPibotSell extends SellAlg{
   @override
   Function(Map<String, dynamic>) onSell;
 
+  bool _canceled;
+
   DynamicPibotSell({
     this.symbol,
     this.buyedPrice,
@@ -45,6 +47,7 @@ class DynamicPibotSell extends SellAlg{
     calculateBottomLine(this.loseRange);
     binanceService = GetIt.I<BinanceService>();
     printActualState();
+    _canceled = false;
     tradeStream = binanceService.getTradeStream(symbol);
     tradeSubscription = tradeStream.listen(handleTrades);
   }
@@ -52,13 +55,15 @@ class DynamicPibotSell extends SellAlg{
   /// Handle each trade with the price change
   @override
   void handleTrades(WsAggregatedTrade trade){
+    if(_canceled) return;
     if(trade.price < bottomLine){
-      tradeSubscription.cancel();
+      _canceled = true;
       binanceService.sellAll(symbol).then((resMap){
         print('=========================================================');
         print('------------------------ SELLED -------------------------');
         print('Selled at ' + DateTime.now().toString());
         print(resMap);
+        tradeSubscription.cancel();
         if(onSell != null) onSell(resMap);
       });
       return;

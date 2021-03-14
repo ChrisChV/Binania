@@ -83,7 +83,7 @@ class MultipleAlg{
           symbol: symbol,
           rangeType: rangeType,
           loseRange: loseRange,
-          onSell: _onSell,
+          onSell: _onSellAlg,
         );
         break;
     }

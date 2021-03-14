@@ -30,6 +30,8 @@ class PibotBuy extends BuyAlg{
   @override
   Function(Map<String, dynamic>) onBuy;
 
+  bool _canceled;
+
   PibotBuy({
     this.symbol,
     this.quoteBuyAmout,
@@ -65,6 +67,7 @@ class PibotBuy extends BuyAlg{
     calculateBottomLine(this.initialBottom);
     binanceService = GetIt.I<BinanceService>();
     printActualState();
+    _canceled = false;
     tradeStream = binanceService.getTradeStream(symbol);
     tradeSubscription = tradeStream.listen(handleTrades);
   }
@@ -72,8 +75,9 @@ class PibotBuy extends BuyAlg{
   /// Handle each trade with the price change
   @override
   void handleTrades(WsAggregatedTrade trade){
+    if(_canceled) return;
     if(trade.price > topLine){
-      tradeSubscription.cancel();
+      _canceled = true;
       binanceService.createMarketOrder(
         symbol,
         OrderSide.buy,
@@ -83,6 +87,7 @@ class PibotBuy extends BuyAlg{
         print('------------------------ BUYED --------------------------');
         print('Buyed at ' + DateTime.now().toString());
         print(resMap);
+        tradeSubscription.cancel();
         if(onBuy != null) onBuy(resMap);
       });
       return;
